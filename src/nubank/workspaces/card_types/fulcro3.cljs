@@ -1,7 +1,8 @@
 (ns nubank.workspaces.card-types.fulcro3
   (:require
     [cljs.spec.alpha :as s]
-    [com.fulcrologic.fulcro-css.css-injection :as cssi]
+    [com.fulcrologic.fulcro-css.css-injection :as cssi] 
+    [com.fulcrologic.fulcro.react.version18 :refer [with-react18]]
     [com.fulcrologic.fulcro.algorithms.merge :as f.merge]
     [com.fulcrologic.fulcro.algorithms.normalize :refer [tree->db]]
     [com.fulcrologic.fulcro.application :as fapp]
@@ -91,7 +92,7 @@
                      app-id
                      (assoc-in [:initial-db :fulcro.inspect.core/app-id] app-id))
           ;; TASK: explicit initial state handling
-          instance (fapp/fulcro-app app)]
+          instance (with-react18 (fapp/fulcro-app app))]
       (if persistence-key (swap! persistent-apps* assoc persistence-key instance))
       instance)))
 
